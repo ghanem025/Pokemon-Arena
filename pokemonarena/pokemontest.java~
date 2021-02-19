@@ -1,0 +1,17 @@
+class pokemontest{
+  String name,type,weak;
+//  int attack,energy cost;
+  
+  public pokemontest(String info){
+    String [] stat = info.split(",");
+    name = stat[6];
+   
+  }
+  public String toString(){
+    return name;
+    
+  
+
+  }
+  
+}

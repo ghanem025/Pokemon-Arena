@@ -1,0 +1,171 @@
+import java.util.*;
+import java.io.*;
+
+class pokemonarena{
+  public static ArrayList<Pokemon>allPoke = new ArrayList<Pokemon>();
+  public static ArrayList<Pokemon>team = new ArrayList<Pokemon>();
+ 
+
+  
+ 
+  static String [] pokelist ={};
+  public static int picked = 0;
+//  public static Pokemon goodP;
+  
+  public static Pokemon goodP;
+  public static Pokemon badP;
+
+//  public static String choicepoke = "";
+  static int num =4;
+  
+   public static int epick = 0;
+
+  
+  
+
+
+
+  public static void pick4 (){
+    Scanner kb = new Scanner (System.in);
+    System.out.printf(" choose your pokemon:\n ");
+   
+    
+    for (int j=0 ; j<num; j++){
+  
+    for (int i=0;i<allPoke.size();i++){
+     System.out.printf("%3d. %s \n",i+1,allPoke.get(i));
+ 
+  
+   }
+     picked = kb.nextInt();
+   
+    if (picked <=28 && picked >0){
+    Pokemon poketeam = allPoke.get(picked-1);
+    System.out.println(picked);
+    System.out.println(poketeam);
+    team.add(poketeam);
+    allPoke.remove(poketeam);      
+    }
+    else{
+      System.out.println("sorry, you must choice one of the avaliable numbers");
+      num+=1;
+    }
+    }
+
+  }
+  public static void pokechoose(){
+    Scanner kb = new Scanner (System.in);
+    System.out.println(team);
+    System.out.println("choose your pokemon, pick a number from 1 to 4");
+    int fighter = kb.nextInt();
+    goodP = team.get(fighter-1);
+
+ 
+    System.out.println("you choose " + goodP);
+    
+  }
+  
+  public static boolean coin(){
+    return Math.random()<.5;
+  }
+  
+  public static void battle (Pokemon badP){
+    pokechoose();
+    boolean turn = coin();
+    while(badP.awake() && team.size()>0){
+      if(turn=false){
+        badturn();
+        goodturn();
+      }
+      else {
+        goodturn();
+        badturn();
+      }
+      //recharge();
+  }
+  }
+    
+
+    
+    public static void goodturn(){
+       Scanner kb = new Scanner (System.in);
+       System.out.println("get ready to battle");
+       while(true){
+         System.out.println("\n"+goodP+"\n"+badP);
+         System.out.println("1. attack  2.retreat  3.pass");
+         int action = kb.nextInt();
+         
+         if (action == 1){
+           System.out.println("Pick your attack:");
+//           System.out.println("0. no attack "+goodP.showMoves());
+           int attackchoice = kb.nextInt()-1;
+          
+     
+//             System.out.println(picked);
+//             attackchoice = attackchoice+picked;
+          
+           goodP.attack(badP,attackchoice);
+     
+          
+         }
+         if (action ==2){
+           pokechoose();
+           break;
+         }
+         if (action==3){
+           System.out.println("your pokemon is charging");
+           break;
+         }
+                badturn();
+                System.out.println(badP+" attacked you");
+       }
+
+    }
+    
+//    
+    public static void badturn()
+    {
+      epick = (int) (Math.random()*allPoke.size());
+      System.out.println("enemy turn");
+      int enemyattack = epick;
+      System.out.println("number of the attack: "+enemyattack);
+      badP.attack(goodP,enemyattack);
+    }
+//  
+
+    public static void load () throws IOException{
+    Scanner myFile = new Scanner (new BufferedReader( new FileReader("pokemon.txt")));
+    int num = Integer.parseInt(myFile.nextLine());
+    
+
+  
+    for (int i=0;i<num;i++){
+      allPoke.add(new Pokemon(myFile.nextLine()));     
+    }  
+    
+     
+  }
+
+
+  public static void main (String [] args) throws IOException{
+    Scanner kb = new Scanner (System.in);
+    
+
+    load();
+    pick4();
+    epick = (int) (Math.random()*allPoke.size());
+   
+    badP = allPoke.get(epick);
+    battle(badP);
+//    badP= allPoke.shuffle;
+//    battle(allPoke.get(0));
+//    allPoke.remove(0);
+    
+//    System.out.println(allPoke);322
+   
+    System.out.println(badP);
+
+    
+  }
+  
+}

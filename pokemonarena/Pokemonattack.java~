@@ -1,0 +1,12 @@
+/**
+ * Auto Generated Java Class.
+ */
+public class Pokemonattack {
+  public pokemonattack(String attackname ,int energycost,int damage){
+    
+     
+  }
+  
+
+  
+}
